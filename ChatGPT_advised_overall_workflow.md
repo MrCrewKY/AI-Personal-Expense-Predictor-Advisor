@@ -20,6 +20,7 @@ Cursor = workshop
 
 Click New Notebook
 
+
 2️⃣ Rename notebook:
 
 expenses_forecasting.ipynb

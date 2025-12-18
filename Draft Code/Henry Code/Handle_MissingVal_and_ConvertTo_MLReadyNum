@@ -1,0 +1,7 @@
+monthly_expense.isnull().sum()
+monthly_expense = monthly_expense.dropna()
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+scaled = scaler.fit_transform(monthly_expense[['expense']])

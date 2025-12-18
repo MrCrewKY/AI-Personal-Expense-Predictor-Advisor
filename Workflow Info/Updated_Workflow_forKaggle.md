@@ -39,7 +39,7 @@ Do NOT move forward until this works.
 
 🟢 STEP 2: Convert Transaction Data → Monthly Expense Time Series
 
-(NEW – required because dataset is transaction-level)
+(Updated to include Category for advisory & dashboard)
 
 What this step REALLY means:
 
@@ -47,15 +47,23 @@ Filter Expense transactions only
 
 Convert dates to datetime
 
-Aggregate expenses by month
+Aggregate expenses by month (total) → for Prophet & ANN
 
-Filter expenses only:
+Aggregate expenses by month and category → for LLM advisory & dashboard
+
+📌 Important design decision:
+
+Total monthly expenses are used for forecasting models (Prophet & ANN)
+
+Category-level expenses are used only for AI advice and visualization
+
+2.1 Filter expenses only
 df_expense = df[df['Type'] == 'Expense']
 
-Convert Date column:
+2.2 Convert Date column to datetime
 df_expense['Date'] = pd.to_datetime(df_expense['Date'])
 
-Aggregate monthly expenses:
+2.3 Aggregate TOTAL monthly expenses (for ML models)
 monthly_expense = (
     df_expense
     .groupby(pd.Grouper(key='Date', freq='M'))['Amount']
@@ -66,17 +74,40 @@ monthly_expense = (
 monthly_expense.columns = ['date', 'expense']
 monthly_expense.head()
 
-What you should now have:
+Output format (used for Prophet & ANN):
 date        expense
-2020-01-31  3200
-2020-02-29  3100
+2021-01-31  3200
+2021-02-28  3100
 
 
-🎯 Goal: Convert transaction data into monthly expense data.
+🎯 Goal: Create a clean univariate monthly time series for forecasting.
 
-📌 Report-safe explanation:
+2.4 Aggregate monthly expenses BY CATEGORY (for LLM & dashboard)
+category_monthly_expense = (
+    df_expense
+    .groupby([
+        pd.Grouper(key='Date', freq='M'),
+        'Category'
+    ])['Amount']
+    .sum()
+    .reset_index()
+)
 
-The transaction-level dataset was aggregated into monthly expenses to support time-series forecasting.
+category_monthly_expense.columns = ['date', 'category', 'expense']
+category_monthly_expense.head()
+
+Output format (used for advisory & visualization):
+date        category        expense
+2021-01-31  Food & Drink    800
+2021-01-31  Rent            1500
+
+
+🎯 Goal: Preserve category-level spending patterns for better AI budgeting advice.
+
+📌 Report-safe explanation (you can copy this):
+
+Transaction data was aggregated into monthly total expenses for time-series forecasting, while category-level monthly aggregation was retained to enhance AI-generated budgeting advice and dashboard visualizations.
+
 
 🟢 STEP 3: Preprocess Data (scikit-learn)
 What “preprocess” REALLY means here:

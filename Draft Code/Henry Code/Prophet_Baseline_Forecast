@@ -1,0 +1,17 @@
+from prophet import Prophet
+
+prophet_df = monthly_expense.rename(
+    columns={'date':'ds', 'expense':'y'}
+)
+
+model = Prophet()
+model.fit(prophet_df)
+
+future = model.make_future_dataframe(periods=6, freq='ME')
+forecast = model.predict(future)
+
+# Below are just optional codes to verify that our code works correctly
+# First code shows a table of yhat values for each month
+# forecast[['ds', 'yhat']].tail()
+# 2nd code plots the graph of the time series forecast
+# model.plot(forecast)

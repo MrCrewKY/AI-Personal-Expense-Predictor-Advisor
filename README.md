@@ -3,9 +3,9 @@
 AI Project Assignment for AI Subject at MJIIT
 
 ## Group mates:
-/n Ameer (Handle Task 4. and 5.)
-/n Henry (Handle Task 1. to 3.)
-/n Chuah (Handle Task 7. to 8.)
+Ameer (Handle Task 4. and 5.)\
+Henry (Handle Task 1. to 3.)\
+Chuah (Handle Task 7. to 8.)
 
 ## TOOLS USED:
 - Cursor AI = Like a AI powered Arduino IDE to write code

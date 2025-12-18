@@ -2,23 +2,41 @@ Step-by-Step Starter Path (Beginner Safe)
 
 (Updated for Kaggle Transaction-Level Dataset)
 
-🟢 STEP 0: Setup (1–2 hours max)
+You will use TWO TOOLS together:
 
-Install:
+Tool Purpose Google Colab Learn, test, experiment, debug Cursor AI Write clean final code, refactor, fix errors
 
-pip install pandas numpy scikit-learn prophet tensorflow matplotlib
+Think of it like:
 
+Colab = laboratory Cursor = workshop
 
-Use:
+🟢 STEP 0 — Setup (Google Colab) ✅ WHERE: Google Colab
 
-Jupyter Notebook OR Google Colab (recommended)
+1️⃣ Go to 👉 https://colab.research.google.com
 
-🟢 STEP 1: Load Kaggle Transaction Dataset (NO AI YET)
-What you do:
-import pandas as pd
+Click New Notebook
 
-df = pd.read_csv("transactions.csv")
+2️⃣ Rename notebook:
+
+expenses_forecasting.ipynb
+
+3️⃣ Install libraries (Colab needs this once per session):
+
+!pip install pandas numpy scikit-learn prophet tensorflow matplotlib
+
+⛔ If this fails → STOP and fix Do NOT move forward.
+
+🎯 Goal: No red error text.
+
+🟢 STEP 1 — Load Monthly Expense Data ✅ WHERE: Google Colab Option A: Upload CSV manually
+
+Left sidebar → 📁 → Upload → expenses.csv
+
+Code cell: import pandas as pd
+
+df = pd.read_csv("expenses.csv") 
 df.head()
+
 
 What your dataset contains:
 
@@ -36,6 +54,8 @@ Type (Income / Expense)
 
 If this fails → stop and fix.
 Do NOT move forward until this works.
+
+⛔ If you don’t see data → STOP
 
 🟢 STEP 2: Convert Transaction Data → Monthly Expense Time Series
 
